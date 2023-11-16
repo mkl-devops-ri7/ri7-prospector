@@ -38,6 +38,10 @@ jobs:
         run: curl -v -o /dev/null http://localhost
       - name: Check HTTPS reachability
         run: curl -vk -o /dev/null https://localhost
+      - name: Run PHPStan
+        run: docker compose exec -T php vendor/bin/phpstan analyse --level max
+      - name: Run PHPCs-fixer
+        run: docker compose exec -T php vendor/bin/php-cs-fixer fix
       - name: Create test database
         if: false # Remove this line if Doctrine ORM is installed
         run: docker compose exec -T php bin/console -e test doctrine:database:create
