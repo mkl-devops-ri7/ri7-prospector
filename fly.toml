@@ -9,10 +9,10 @@ primary_region = "cdg"
 [build]
   dockerfile = "Dockerfile"
 [env]
-  PORT = "8080"
+  PORT = "80"
 
 [http_service]
-  internal_port = 8080
+  internal_port = 80
   force_https = true
   auto_stop_machines = true
   auto_start_machines = true
