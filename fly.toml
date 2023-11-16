@@ -9,6 +9,10 @@ primary_region = "cdg"
 [build]
   dockerfile = "Dockerfile"
 
+[build.args]
+  DATABASE_TYPE = "postgresql"
+  HOSTNAME = "0.0.0.0"
+
 [env]
   HOSTNAME = "0.0.0.0"
   PORT = "80"
