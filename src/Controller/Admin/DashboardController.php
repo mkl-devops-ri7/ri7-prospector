@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Company;
 use App\Entity\Notification;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
@@ -32,6 +33,7 @@ class DashboardController extends AbstractDashboardController
     {
         yield MenuItem::linktoRoute('Back to the website', 'fas fa-home', 'homepage');
         yield MenuItem::linkToCrud('User', 'fas fa-map-marker-alt', User::class);
+        yield MenuItem::linkToCrud('Company', 'fas fa-map-marker-alt', Company::class);
         yield MenuItem::linkToCrud('Notification', 'fas fa-map-marker-alt', Notification::class);
     }
 }
