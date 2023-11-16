@@ -9,7 +9,7 @@
         "php": ">=8.2.12",
         "ext-ctype": "*",
         "ext-iconv": "*",
-        "doctrine/doctrine-bundle": "^2.11",
+        "doctrine/doctrine-bundle": "*",
         "doctrine/doctrine-migrations-bundle": "^3.3",
         "doctrine/orm": "^2.17",
         "runtime/frankenphp-symfony": "^0.1.1",
