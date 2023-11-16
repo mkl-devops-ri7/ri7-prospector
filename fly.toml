@@ -1,4 +1,4 @@
-# fly.toml app configuration file generated for ri7-prospector on 2023-11-16T11:07:39+01:00
+# fly.toml app configuration file generated for ri7-prospector on 2023-11-16T14:32:09+01:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
@@ -9,10 +9,10 @@ primary_region = "cdg"
 [build]
   dockerfile = "Dockerfile"
 [env]
-  PORT = "8080"
+  PORT = "80"
 
 [http_service]
-  internal_port = 8080
+  internal_port = 80
   force_https = true
   auto_stop_machines = true
   auto_start_machines = true
