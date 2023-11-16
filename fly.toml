@@ -10,6 +10,7 @@ primary_region = "cdg"
   dockerfile = "Dockerfile"
 
 [env]
+  HOSTNAME = "0.0.0.0"
   PORT = "80"
 
 [http_service]
