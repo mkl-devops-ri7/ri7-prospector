@@ -4,10 +4,11 @@ namespace App\DataFixtures;
 
 use App\Entity\Contact;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 
-class AppFixturesContact extends Fixture
+class AppFixturesContact extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
@@ -33,5 +34,12 @@ class AppFixturesContact extends Fixture
         }
 
         $manager->flush();
+    }
+
+    public function getDependencies()
+    {
+        return [
+            AppFixturesCompany::class,
+        ];
     }
 }

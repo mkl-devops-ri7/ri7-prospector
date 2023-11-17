@@ -59,7 +59,7 @@ class Contact
     private Collection $prospections;
 
     #[Groups(['contact:read'])]
-    #[ORM\ManyToOne]
+    #[ORM\ManyToOne(cascade: ['persist'])]
     private ?Company $company = null;
 
     public function __construct()
