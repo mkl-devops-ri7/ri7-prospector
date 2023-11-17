@@ -2,17 +2,27 @@
 
 namespace App\Controller\Admin;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\Contact;
+use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
-class ContactCrudController extends AbstractController
+class ContactCrudController extends AbstractCrudController
 {
-    #[Route('/admin/contact/crud', name: 'app_admin_contact_crud')]
-    public function index(): Response
+    public static function getEntityFqcn(): string
     {
-        return $this->render('admin/contact_crud/index.html.twig', [
-            'controller_name' => 'ContactCrudController',
-        ]);
+        return Contact::class;
     }
+
+    /*
+    public function configureFields(string $pageName): iterable
+    {
+        return [
+            IdField::new('id'),
+            TextField::new('title'),
+            TextEditorField::new('description'),
+        ];
+    }
+    */
 }

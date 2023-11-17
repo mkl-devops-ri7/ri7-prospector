@@ -88,4 +88,4 @@ current_branch=$(shell git rev-parse --abbrev-ref HEAD)
 git-push:
 	git push origin "$(current_branch)" --force-with-lease --force-if-includes
 
-commit: analyze git-auto-commit git-push ## Commit and push the current branch
+commit: analyze git-auto-commit git-rebase git-push ## Commit and push the current branch
