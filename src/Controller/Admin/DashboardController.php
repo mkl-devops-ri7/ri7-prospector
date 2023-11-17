@@ -6,6 +6,7 @@ use App\Entity\Action;
 use App\Entity\Company;
 use App\Entity\Contact;
 use App\Entity\Notification;
+use App\Entity\Prospection;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -17,12 +18,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class DashboardController extends AbstractDashboardController
 {
     /**
-     * Index controller
+     * Index controller.
      */
     #[Route('/admin', name: 'admin')]
     public function index(): Response
     {
-        /** @var AdminUrlGenerator $routeBuilder  */
+        /** @var AdminUrlGenerator $routeBuilder */
         $routeBuilder = $this->container->get(AdminUrlGenerator::class);
         $url = $routeBuilder->setController(UserCrudController::class)->generateUrl();
 
@@ -43,5 +44,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Notification', 'fas fa-map-marker-alt', Notification::class);
         yield MenuItem::linkToCrud('Action', 'fas fa-map-marker-alt', Action::class);
         yield MenuItem::linkToCrud('Contact', 'fas fa-map-marker-alt', Contact::class);
+        yield MenuItem::linkToCrud('Prospection', 'fas fa-map-marker-alt', Prospection::class);
     }
 }
