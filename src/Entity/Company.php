@@ -8,7 +8,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CompanyRepository::class)]
-class Company
+class Company implements \Stringable
 {
     use TimestampableTrait;
 
@@ -95,5 +95,10 @@ class Company
         $this->logoUrl = $logoUrl;
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return sprintf('%s', $this->name);
     }
 }
