@@ -40,6 +40,9 @@ docker-down: ## Stop the docker hub
 docker-logs: ## Show live logs
 	@$(DOCKER_COMP) logs --tail=0 --follow
 
+docker-ls: ## Show live logs
+	@$(DOCKER_COMP) lsdocker
+
 docker-sh: ## Connect to the PHP FPM container
 	@$(PHP_CONT) sh
 
