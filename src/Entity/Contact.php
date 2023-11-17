@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ContactRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -31,6 +33,17 @@ class Contact
 
     #[ORM\Column(length: 20)]
     private ?string $phoneNumber = null;
+
+    /**
+     * @var Collection<int, Prospection>
+     */
+    #[ORM\OneToMany(mappedBy: 'contact', targetEntity: Prospection::class, orphanRemoval: true)]
+    private Collection $prospections;
+
+    public function __construct()
+    {
+        $this->prospections = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -105,6 +118,36 @@ class Contact
     public function setPhoneNumber(string $phoneNumber): static
     {
         $this->phoneNumber = $phoneNumber;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Prospection>
+     */
+    public function getProspections(): Collection
+    {
+        return $this->prospections;
+    }
+
+    public function addProspection(Prospection $prospection): static
+    {
+        if (!$this->prospections->contains($prospection)) {
+            $this->prospections->add($prospection);
+            $prospection->setContact($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProspection(Prospection $prospection): static
+    {
+        if ($this->prospections->removeElement($prospection)) {
+            // set the owning side to null (unless already changed)
+            if ($prospection->getContact() === $this) {
+                $prospection->setContact(null);
+            }
+        }
 
         return $this;
     }

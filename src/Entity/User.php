@@ -54,9 +54,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'userTargeted', targetEntity: Notification::class, orphanRemoval: true)]
     private Collection $notifications;
 
+    /**
+     * @var Collection<int, Prospection>
+     */
+    #[ORM\OneToMany(mappedBy: '_user', targetEntity: Prospection::class, orphanRemoval: true)]
+    private Collection $prospections;
+
     public function __construct()
     {
         $this->notifications = new ArrayCollection();
+        $this->prospections = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -206,6 +213,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($notification->getUserTargeted() === $this) {
                 $notification->setUserTargeted(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Prospection>
+     */
+    public function getProspections(): Collection
+    {
+        return $this->prospections;
+    }
+
+    public function addProspection(Prospection $prospection): static
+    {
+        if (!$this->prospections->contains($prospection)) {
+            $this->prospections->add($prospection);
+            $prospection->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProspection(Prospection $prospection): static
+    {
+        if ($this->prospections->removeElement($prospection)) {
+            // set the owning side to null (unless already changed)
+            if ($prospection->getUser() === $this) {
+                $prospection->setUser(null);
             }
         }
 

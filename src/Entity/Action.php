@@ -28,6 +28,9 @@ class Action
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
+    #[ORM\ManyToOne(inversedBy: 'actions')]
+    private ?Prospection $prospection = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -89,6 +92,18 @@ class Action
     public function setCreatedAt(\DateTimeImmutable $createdAt): static
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getProspection(): ?Prospection
+    {
+        return $this->prospection;
+    }
+
+    public function setProspection(?Prospection $prospection): static
+    {
+        $this->prospection = $prospection;
 
         return $this;
     }
