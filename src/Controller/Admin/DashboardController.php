@@ -37,6 +37,5 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Company', 'fas fa-map-marker-alt', Company::class);
         yield MenuItem::linkToCrud('Notification', 'fas fa-map-marker-alt', Notification::class);
         yield MenuItem::linkToCrud('Action', 'fas fa-map-marker-alt', Action::class);
-
     }
 }
