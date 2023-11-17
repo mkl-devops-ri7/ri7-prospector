@@ -24,16 +24,16 @@ class RegistrationFormType extends AbstractType
                     'class' => 'block text-sm font-medium text-gray-700',
                 ],
                 'attr' => [
-                    'class' => 'mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm', // Ajout de classes au champ lui-même
+                    'class' => 'mt-1 w-full p-4 rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm focus:outline-teal-600 ', // Ajout de classes au champ lui-même
                 ],
             ])
             ->add('firstname', TextType::class, [
                 'label' => 'Prénom',
                 'label_attr' => [
-                    'class' => 'block text-sm font-medium text-gray-700',
+                    'class' => 'block  text-sm font-medium text-gray-700',
                 ],
                 'attr' => [
-                    'class' => 'mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm', // Ajout de classes au champ lui-même
+                    'class' => 'mt-1 p-4 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm focus:outline-teal-500', // Ajout de classes au champ lui-même
                 ],
             ])
             ->add('lastname', TextType::class, [
@@ -42,7 +42,7 @@ class RegistrationFormType extends AbstractType
                     'class' => 'block text-sm font-medium text-gray-700',
                 ],
                 'attr' => [
-                    'class' => ' mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm', // Ajout de classes au champ lui-même
+                    'class' => ' mt-1 p-4 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm focus:outline-teal-500', // Ajout de classes au champ lui-même
                 ],
             ])
 
@@ -58,10 +58,10 @@ class RegistrationFormType extends AbstractType
                 'first_options' => [
                     'label' => 'Mot de Passe',
                     'label_attr' => [
-                        'class' => 'block text-sm font-medium text-gray-700 col-6',
+                        'class' => 'block text-sm font-medium text-gray-700 col-6 focus:outline-teal-500',
                     ],
                     'attr' => [
-                        'class' => 'mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm',
+                        'class' => 'p-4 mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm focus:outline-teal-500',
                     ],
                 ],
                 'second_options' => [
@@ -70,7 +70,7 @@ class RegistrationFormType extends AbstractType
                         'class' => 'block text-sm font-medium text-gray-700 col-6',
                     ],
                     'attr' => [
-                        'class' => 'mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm',
+                        'class' => 'mt-1 p-4 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm focus:outline-teal-500',
                     ],
                 ],
                 'constraints' => [
