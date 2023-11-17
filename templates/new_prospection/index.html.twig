@@ -1,20 +1,28 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello NewProspectionController!{% endblock %}
+{% block title %}Nouvelle prospection{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <div class="max-w-md mx-auto bg-white rounded p-8 shadow-md my-20 ">
+        <h2 class="text-2xl font-bold mb-4">Nouvelle prospection</h2>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+        <form action="" method="POST">
+            <div class="mb-4">
+                <label for="status" class="block text-gray-700 font-bold mb-2">Status</label>
+                <input type="text" id="status" name="status"  class="w-full border rounded-md py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500">
+            </div>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/app/src/Controller/NewProspectionController.php'|file_link(0) }}">src/Controller/NewProspectionController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/app/templates/new_prospection/index.html.twig'|file_link(0) }}">templates/new_prospection/index.html.twig</a></code></li>
-    </ul>
-</div>
+            <div class="mb-4">
+                <label for="commentaire" class="block text-gray-700 font-bold mb-2">Commentaire</label>
+                <textarea id="commentaire" name="commentaire" placeholder="Entrez votre commentaire" class="w-full border rounded-md py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"></textarea>
+            </div>
+
+            <div class="mb-4">
+                <label for="datepicker" class="block text-gray-700 font-bold mb-2">Date</label>
+                <input type="date" id="datepicker" name="datepicker" class="w-full border rounded-md py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500">
+            </div>
+
+            <button type="submit" class="bg-teal-600 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Envoyer</button>
+        </form>
+    </div>
 {% endblock %}
