@@ -82,7 +82,7 @@ git-rebase:
 	git pull --rebase
 	git pull --rebase origin main
 
-message ?= $( shell git branch --show-current | sed -E 's/^([0-9]+)-([^-]+)-(.+)/\2: #\1 \3/' | sed "s/-/ /g")
+message ?= $(shell git branch --show-current | sed -E 's/^([0-9]+)-([^-]+)-(.+)/\2: \#\1 \3/' | sed "s/-/ /g")
 git-auto-commit:
 	git add .
 	git commit -m "${message}" -q || true
