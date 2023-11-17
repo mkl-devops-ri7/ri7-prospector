@@ -11,10 +11,14 @@ class AppFixturesContact extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
+        $company1 = $this->getReference('company-1');
+        $company2 = $this->getReference('company-2');
+
         $faker = Factory::create();
 
         for ($i = 0; $i < 5; ++$i) {
             $contact = new Contact();
+
             $contact->setEmail($faker->email);
             $jobTitle = substr($faker->jobTitle, 0, 20);
             $contact->setJob($jobTitle);
@@ -22,6 +26,8 @@ class AppFixturesContact extends Fixture
             $contact->setLastName($faker->lastName());
             $contact->setLinkedinProfilUrl($faker->url());
             $contact->setPhoneNumber($faker->phoneNumber());
+            $randomCompany = $faker->boolean ? $company1 : $company2;
+            $contact->setCompany($randomCompany);
 
             $manager->persist($contact);
         }
