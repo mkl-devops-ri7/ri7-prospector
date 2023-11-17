@@ -2,44 +2,63 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Post;
 use App\Repository\ContactRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
+#[ApiResource(
+    operations: [
+        new Post(),
+    ],
+    normalizationContext: ['groups' => ['contact:read']],
+    denormalizationContext: ['groups' => ['contact:write']],
+)]
 #[ORM\Entity(repositoryClass: ContactRepository::class)]
 class Contact
 {
+    #[Groups(['contact:read'])]
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Groups(['contact:read', 'contact:write'])]
     #[ORM\Column(length: 255)]
     private ?string $email = null;
 
+    #[Groups(['contact:read', 'contact:write'])]
     #[ORM\Column(length: 255)]
     private ?string $job = null;
 
+    #[Groups(['contact:read', 'contact:write'])]
     #[ORM\Column(length: 255)]
     private ?string $firstName = null;
 
+    #[Groups(['contact:read', 'contact:write'])]
     #[ORM\Column(length: 255)]
     private ?string $lastName = null;
 
+    #[Groups(['contact:read', 'contact:write'])]
     #[ORM\Column(type: Types::TEXT)]
     private ?string $linkedinProfilUrl = null;
 
+    #[Groups(['contact:read', 'contact:write'])]
     #[ORM\Column(length: 20)]
     private ?string $phoneNumber = null;
 
     /**
      * @var Collection<int, Prospection>
      */
+    #[Groups(['contact:read'])]
     #[ORM\OneToMany(mappedBy: 'contact', targetEntity: Prospection::class, orphanRemoval: true)]
     private Collection $prospections;
 
+    #[Groups(['contact:read'])]
     #[ORM\ManyToOne]
     private ?Company $company = null;
 
