@@ -24,6 +24,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 180, unique: true)]
     private ?string $email = null;
 
+    /**
+     * @var array<string>
+     */
     #[ORM\Column]
     private array $roles = [];
 
@@ -43,8 +46,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $linkedinProfilUrl = null;
 
     #[ORM\Column(type: 'boolean')]
-    private $isVerified = false;
+    private bool $isVerified = false;
 
+    /**
+     * @var Collection<int, Notification>
+     */
     #[ORM\OneToMany(mappedBy: 'userTargeted', targetEntity: Notification::class, orphanRemoval: true)]
     private Collection $notifications;
 
@@ -82,6 +88,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @see UserInterface
+     *
+     * @return array<string>
      */
     public function getRoles(): array
     {
@@ -92,6 +100,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return array_unique($roles);
     }
 
+    /**
+     * @param array<string> $roles
+     */
     public function setRoles(array $roles): static
     {
         $this->roles = $roles;

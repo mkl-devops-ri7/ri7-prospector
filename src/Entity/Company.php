@@ -32,7 +32,6 @@ class Company
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $logoUrl = null;
 
-
     public function getId(): ?int
     {
         return $this->id;
