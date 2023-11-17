@@ -40,6 +40,9 @@ class Contact
     #[ORM\OneToMany(mappedBy: 'contact', targetEntity: Prospection::class, orphanRemoval: true)]
     private Collection $prospections;
 
+    #[ORM\ManyToOne]
+    private ?Company $company = null;
+
     public function __construct()
     {
         $this->prospections = new ArrayCollection();
@@ -148,6 +151,18 @@ class Contact
                 $prospection->setContact(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCompany(): ?Company
+    {
+        return $this->company;
+    }
+
+    public function setCompany(?Company $company): static
+    {
+        $this->company = $company;
 
         return $this;
     }
