@@ -2,7 +2,6 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Action;
 use App\Entity\Company;
 use App\Entity\Notification;
 use App\Entity\User;
@@ -36,6 +35,5 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('User', 'fas fa-map-marker-alt', User::class);
         yield MenuItem::linkToCrud('Company', 'fas fa-map-marker-alt', Company::class);
         yield MenuItem::linkToCrud('Notification', 'fas fa-map-marker-alt', Notification::class);
-        yield MenuItem::linkToCrud('Action', 'fas fa-map-marker-alt', Action::class);
     }
 }
