@@ -13,11 +13,10 @@
     {% endblock %}
 </head>
 <body>
-{% block body %}
     {% include 'layouts/header.twig' %}
+{% block body %}
     <h1 class="text-3xl font-bold underline">Hello world !</h1>
-
-    {% include 'layouts/footer.twig' %}
 {% endblock %}
+{% include 'layouts/footer.twig' %}
 </body>
 </html>
