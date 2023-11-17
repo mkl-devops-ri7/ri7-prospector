@@ -16,7 +16,7 @@ class AppFixturesCompany extends Fixture
 
 
         $company = new Company();
-        $company->setSiret($faker->randomNumber(123456789123456));
+        $company->setSiret("123456789123456");
         $company->setEmail("mycompany@gmail.com");
         $company->setLinkedInProfilUrl("https://fr.linkedin.com/");
         $company->setName($faker->company());
@@ -26,7 +26,7 @@ class AppFixturesCompany extends Fixture
         $this->addReference('company-1',$company);
 
         $companyTwo = new Company();
-        $companyTwo->setSiret($faker->randomNumber(789456123789456));
+        $companyTwo->setSiret("789456123789456");
         $companyTwo->setEmail("mycompany2@gmail.com");
         $companyTwo->setLinkedInProfilUrl("https://fr.linkedin.com/");
         $companyTwo->setName($faker->company());
