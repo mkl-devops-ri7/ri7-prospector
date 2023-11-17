@@ -4,14 +4,12 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
@@ -27,7 +25,6 @@ class RegistrationFormType extends AbstractType
                 ],
                 'attr' => [
                     'class' => 'mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm', // Ajout de classes au champ lui-même
-
                 ],
             ])
             ->add('firstname', TextType::class, [
@@ -56,7 +53,7 @@ class RegistrationFormType extends AbstractType
                 'mapped' => false,
                 'required' => true,
                 'attr' => [
-                    'class' => 'flex'
+                    'class' => 'flex',
                 ],
                 'first_options' => [
                     'label' => 'Mot de Passe',
@@ -64,8 +61,7 @@ class RegistrationFormType extends AbstractType
                         'class' => 'block text-sm font-medium text-gray-700 col-6',
                     ],
                     'attr' => [
-
-                        'class' => 'mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm'
+                        'class' => 'mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm',
                     ],
                 ],
                 'second_options' => [
@@ -74,7 +70,7 @@ class RegistrationFormType extends AbstractType
                         'class' => 'block text-sm font-medium text-gray-700 col-6',
                     ],
                     'attr' => [
-                        'class' => 'mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm'
+                        'class' => 'mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm',
                     ],
                 ],
                 'constraints' => [
