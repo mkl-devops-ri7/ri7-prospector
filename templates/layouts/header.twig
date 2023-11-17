@@ -18,7 +18,9 @@
         </a>
 
         <div class="flex flex-1 items-center justify-end md:justify-between">
+        
             <nav aria-label="Global" class="hidden md:block">
+        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}    
                 <ul class="flex items-center gap-6 text-sm">
                     <li>
                         <a
@@ -74,10 +76,20 @@
                         </a>
                     </li>
                 </ul>
+              {% endif %}  
             </nav>
+            
 
             <div class="flex items-center gap-4">
                 <div class="sm:flex sm:gap-4">
+                {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                    <a
+                        class="hidden rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600 transition hover:text-teal-600/75 dark:bg-gray-800 dark:text-white dark:hover:text-white/75 sm:block"
+                        href={{path('app_logout')}}
+                    >
+                        Logout
+                    </a>
+                {% else %}
                     <a
                         class="block rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-teal-700 dark:hover:bg-teal-500"
                         href={{path('app_login')}}
@@ -91,6 +103,10 @@
                     >
                         Register
                     </a>
+
+                {% endif %}
+                
+
                 </div>
 
                 <button
