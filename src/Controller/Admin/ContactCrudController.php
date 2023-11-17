@@ -15,14 +15,15 @@ class ContactCrudController extends AbstractCrudController
         return Contact::class;
     }
 
-    /*
     public function configureFields(string $pageName): iterable
     {
-        return [
-            IdField::new('id'),
-            TextField::new('title'),
-            TextEditorField::new('description'),
-        ];
+        yield IdField::new('id');
+        yield  TextField::new('email');
+        yield  TextField::new('job');
+        yield  TextField::new('firstname');
+        yield  TextField::new('lastname');
+        yield  TextField::new('linkedinProfilUrl');
+        yield  TextField::new('phoneNumber');
+        yield  TextEditorField::new('description');
     }
-    */
 }
