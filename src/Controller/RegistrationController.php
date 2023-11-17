@@ -15,7 +15,6 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
-use function _PHPStan_c6b09fbdf\RingCentral\Psr7\str;
 
 class RegistrationController extends AbstractController
 {
@@ -36,7 +35,7 @@ class RegistrationController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $plainPassword = $form->get('plainPassword')->getData();
 
-            if(!is_string($plainPassword)) {
+            if (!is_string($plainPassword)) {
                 throw new \Exception('The plain password is not valid.');
             }
 
@@ -51,7 +50,7 @@ class RegistrationController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            if(!is_string($user->getEmail())) {
+            if (!is_string($user->getEmail())) {
                 throw new \Exception('Address mail is not valid.');
             }
 
