@@ -2,9 +2,9 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Action;
 use App\Entity\Company;
 use App\Entity\Notification;
-use App\Entity\Action;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
