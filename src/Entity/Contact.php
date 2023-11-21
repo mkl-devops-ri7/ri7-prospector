@@ -19,7 +19,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
     denormalizationContext: ['groups' => ['contact:write']],
 )]
 #[ORM\Entity(repositoryClass: ContactRepository::class)]
-class Contact
+class Contact implements \Stringable
 {
     #[Groups(['contact:read'])]
     #[ORM\Id]
@@ -65,6 +65,11 @@ class Contact
     public function __construct()
     {
         $this->prospections = new ArrayCollection();
+    }
+
+    public function __toString(): string
+    {
+        return $this->firstName.' '.$this->lastName;
     }
 
     public function getId(): ?int
