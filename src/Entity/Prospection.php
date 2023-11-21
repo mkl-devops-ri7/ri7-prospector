@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
+use App\Entity\Enum\ProspectionStatusEnum;
 use App\Entity\Trait\TimestampableTrait;
 use App\Repository\ProspectionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -20,8 +21,8 @@ class Prospection implements \Stringable
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 20)]
-    private ?string $status = null;
+    #[ORM\Column(enumType: ProspectionStatusEnum::class)]
+    private ProspectionStatusEnum $status = ProspectionStatusEnum::Draft;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $comment = null;
@@ -46,6 +47,7 @@ class Prospection implements \Stringable
     public function __construct()
     {
         $this->actions = new ArrayCollection();
+        $this->createdAt = new \DateTimeImmutable();
     }
 
     public function __toString(): string
@@ -58,12 +60,12 @@ class Prospection implements \Stringable
         return $this->id;
     }
 
-    public function getStatus(): ?string
+    public function getStatus(): ProspectionStatusEnum
     {
         return $this->status;
     }
 
-    public function setStatus(string $status): static
+    public function setStatus(ProspectionStatusEnum $status): static
     {
         $this->status = $status;
 
