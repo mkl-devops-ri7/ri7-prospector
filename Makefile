@@ -78,6 +78,26 @@ lint:
 
 analyze: lint stan cs-fix #infection ## Run all analysis tools
 
+database-drop:
+	@APP_ENV=$(env) $(SYMFONY) doctrine:schema:drop --force --full-database $q
+
+doctrine-migration:
+	@APP_ENV=$(env) $(SYMFONY) make:migration $q
+
+doctrine-migrate: ## Apply doctrine migrate
+	@APP_ENV=$(env) $(SYMFONY) doctrine:migrations:migrate -n $q
+
+doctrine-schema-create:
+	@APP_ENV=$(env) $(SYMFONY) doctrine:schema:create $q
+
+doctrine-fixtures:
+	@APP_ENV=$(env) $(SYMFONY) doctrine:fixtures:load -n $q
+
+doctrine-reset: database-drop doctrine-migrate
+doctrine-apply-migration: doctrine-reset doctrine-migration doctrine-reset  ## Apply doctrine migrate and reset database
+
+## —— Git 🎵 ———————————————————————————————————————————————————————————————
+
 git-rebase:
 	git pull --rebase
 	git pull --rebase origin main

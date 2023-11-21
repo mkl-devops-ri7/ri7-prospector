@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ProspectionRepository::class)]
 #[ApiResource]
-class Prospection
+class Prospection implements \Stringable
 {
     use TimestampableTrait;
     #[ORM\Id]
@@ -38,11 +38,19 @@ class Prospection
 
     #[ORM\ManyToOne(inversedBy: 'prospections')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?User $_user = null;
+    private ?User $user = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $name = null;
 
     public function __construct()
     {
         $this->actions = new ArrayCollection();
+    }
+
+    public function __toString(): string
+    {
+        return $this->name ?? '';
     }
 
     public function getId(): ?int
@@ -118,12 +126,24 @@ class Prospection
 
     public function getUser(): ?User
     {
-        return $this->_user;
+        return $this->user;
     }
 
-    public function setUser(?User $_user): static
+    public function setUser(?User $user): static
     {
-        $this->_user = $_user;
+        $this->user = $user;
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): static
+    {
+        $this->name = $name;
 
         return $this;
     }
