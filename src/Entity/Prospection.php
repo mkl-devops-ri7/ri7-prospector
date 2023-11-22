@@ -3,6 +3,9 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Post;
 use App\Entity\Enum\ProspectionStatusEnum;
 use App\Entity\Trait\TimestampableTrait;
 use App\Repository\ProspectionRepository;
@@ -12,7 +15,13 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ProspectionRepository::class)]
-#[ApiResource]
+#[ApiResource(
+    operations: [
+        new Post(),
+        new Patch(),
+        new Delete(),
+    ]
+)]
 class Prospection implements \Stringable
 {
     use TimestampableTrait;
@@ -43,6 +52,9 @@ class Prospection implements \Stringable
 
     #[ORM\Column(length: 255)]
     private ?string $name = null;
+
+    #[ORM\Column(enumType: ProspectionStatusEnum::class)]
+    private ?ProspectionStatusEnum $type = null;
 
     public function __construct()
     {
@@ -146,6 +158,18 @@ class Prospection implements \Stringable
     public function setName(string $name): static
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getType(): ?ProspectionStatusEnum
+    {
+        return $this->type;
+    }
+
+    public function setType(ProspectionStatusEnum $type): static
+    {
+        $this->type = $type;
 
         return $this;
     }

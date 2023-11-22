@@ -23,6 +23,7 @@ class ProspectionCrudController extends AbstractCrudController
         yield IdField::new('id')->hideOnForm();
         yield TextField::new('name');
         yield ChoiceField::new('status')->setChoices(ProspectionStatusEnum::cases());
+        yield ChoiceField::new('type')->setChoices(ProspectionStatusEnum::cases());
         yield AssociationField::new('user');
         yield AssociationField::new('contact');
         yield AssociationField::new('actions')->hideOnForm();
