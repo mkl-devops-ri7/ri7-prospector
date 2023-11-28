@@ -53,7 +53,7 @@ class Prospection implements \Stringable
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\Column(enumType: ProspectionStatusEnum::class)]
+    #[ORM\Column(enumType: ProspectionStatusEnum::class, options: ['default' => ProspectionStatusEnum::Draft])]
     private ?ProspectionStatusEnum $type = null;
 
     public function __construct()
