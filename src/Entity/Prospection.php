@@ -3,6 +3,10 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Post;
+use App\Entity\Enum\ProspectionStatusEnum;
 use App\Entity\Trait\TimestampableTrait;
 use App\Repository\ProspectionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -11,8 +15,14 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ProspectionRepository::class)]
-#[ApiResource]
-class Prospection
+#[ApiResource(
+    operations: [
+        new Post(),
+        new Patch(),
+        new Delete(),
+    ]
+)]
+class Prospection implements \Stringable
 {
     use TimestampableTrait;
     #[ORM\Id]
@@ -20,8 +30,8 @@ class Prospection
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 20)]
-    private ?string $status = null;
+    #[ORM\Column(enumType: ProspectionStatusEnum::class)]
+    private ProspectionStatusEnum $status = ProspectionStatusEnum::Draft;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $comment = null;
@@ -38,11 +48,23 @@ class Prospection
 
     #[ORM\ManyToOne(inversedBy: 'prospections')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?User $_user = null;
+    private ?User $user = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $name = null;
+
+    #[ORM\Column(enumType: ProspectionStatusEnum::class, options: ['default' => ProspectionStatusEnum::Draft])]
+    private ?ProspectionStatusEnum $type = null;
 
     public function __construct()
     {
         $this->actions = new ArrayCollection();
+        $this->createdAt = new \DateTimeImmutable();
+    }
+
+    public function __toString(): string
+    {
+        return $this->name ?? '';
     }
 
     public function getId(): ?int
@@ -50,12 +72,12 @@ class Prospection
         return $this->id;
     }
 
-    public function getStatus(): ?string
+    public function getStatus(): ProspectionStatusEnum
     {
         return $this->status;
     }
 
-    public function setStatus(string $status): static
+    public function setStatus(ProspectionStatusEnum $status): static
     {
         $this->status = $status;
 
@@ -118,12 +140,36 @@ class Prospection
 
     public function getUser(): ?User
     {
-        return $this->_user;
+        return $this->user;
     }
 
-    public function setUser(?User $_user): static
+    public function setUser(?User $user): static
     {
-        $this->_user = $_user;
+        $this->user = $user;
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): static
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getType(): ?ProspectionStatusEnum
+    {
+        return $this->type;
+    }
+
+    public function setType(ProspectionStatusEnum $type): static
+    {
+        $this->type = $type;
 
         return $this;
     }

@@ -14,7 +14,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
-class User implements UserInterface, PasswordAuthenticatedUserInterface
+class User implements UserInterface, PasswordAuthenticatedUserInterface, \Stringable
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -57,7 +57,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var Collection<int, Prospection>
      */
-    #[ORM\OneToMany(mappedBy: '_user', targetEntity: Prospection::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Prospection::class, orphanRemoval: true)]
     private Collection $prospections;
 
     public function __construct()
@@ -66,9 +66,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->prospections = new ArrayCollection();
     }
 
+    public function __toString(): string
+    {
+        return $this->getFullname();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getFullname(): string
+    {
+        return sprintf('%s %s', ucfirst((string) $this->firstname), ucfirst((string) $this->lastname));
     }
 
     public function getEmail(): ?string

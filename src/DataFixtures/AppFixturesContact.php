@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Company;
 use App\Entity\Contact;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
@@ -12,7 +13,10 @@ class AppFixturesContact extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
+        /** @var Company $company1 */
         $company1 = $this->getReference('company-1');
+
+        /** @var Company $company2 */
         $company2 = $this->getReference('company-2');
 
         $faker = Factory::create();
