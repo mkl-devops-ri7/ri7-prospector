@@ -68,12 +68,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \String
 
     public function __toString(): string
     {
-        return sprintf('%s %s', $this->firstname, $this->lastname);
+        return $this->getFullname();
     }
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getFullname(): string
+    {
+        return sprintf('%s %s', ucfirst((string) $this->firstname), ucfirst((string) $this->lastname));
     }
 
     public function getEmail(): ?string
