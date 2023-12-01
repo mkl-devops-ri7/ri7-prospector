@@ -1,7 +1,11 @@
 #syntax=docker/dockerfile:1.4
 
+FROM mkldevops/frankenphp:8.2 AS frankenphp_base
+
+WORKDIR /app
+
 # Dev FrankenPHP image
-FROM mkldevops/frankenphp:8.2 AS frankenphp_dev
+FROM frankenphp_base AS frankenphp_dev
 
 ENV APP_ENV=dev XDEBUG_MODE=off
 VOLUME /app/var/
@@ -18,7 +22,7 @@ COPY --link frankenphp/conf.d/app.dev.ini $PHP_INI_DIR/conf.d/
 CMD [ "frankenphp", "run", "--config", "/etc/caddy/Caddyfile", "--watch" ]
 
 # Prod FrankenPHP image
-FROM mkldevops/frankenphp:8.2 AS frankenphp_prod
+FROM frankenphp_base AS frankenphp_prod
 
 ENV APP_ENV=prod
 ENV FRANKENPHP_CONFIG="import worker.Caddyfile"
