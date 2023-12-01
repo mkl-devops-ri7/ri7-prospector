@@ -69,7 +69,7 @@ cc: c=c:c ## Clear the cache
 cc: sf
 
 stan:
-	@APP_ENV=$(env) $(PHP_CONT) ./vendor/bin/phpstan analyse $q --memory-limit 256M
+	@APP_ENV=$(env) $(PHP_CONT) ./vendor/bin/phpstan analyse --memory-limit=256M $q
 
 cs-fix:
 	@APP_ENV=$(env) $(PHP_CONT) ./vendor/bin/php-cs-fixer fix $q --allow-risky=yes
