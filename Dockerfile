@@ -4,6 +4,10 @@ FROM mkldevops/frankenphp:8.2 AS frankenphp_base
 
 WORKDIR /app
 
+COPY --link --chmod=755 frankenphp/docker-entrypoint.sh /usr/local/bin/docker-entrypoint
+
+ENTRYPOINT ["docker-entrypoint"]
+
 # Dev FrankenPHP image
 FROM frankenphp_base AS frankenphp_dev
 

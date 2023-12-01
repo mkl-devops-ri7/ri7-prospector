@@ -16,17 +16,14 @@ use Symfony\Component\Serializer\Annotation\Groups;
     operations: [
         new Post(),
     ],
-    normalizationContext: ['groups' => ['contact:read']],
+    normalizationContext: ['groups' => ['contact:read', 'id:read', 'created_at:read']],
     denormalizationContext: ['groups' => ['contact:write']],
 )]
 #[ORM\Entity(repositoryClass: ContactRepository::class)]
 class Contact implements Stringable
 {
-    #[Groups(['contact:read'])]
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    use Trait\IdEntityTrait;
+    use Trait\TimestampableEntityTrait;
 
     #[Groups(['contact:read', 'contact:write'])]
     #[ORM\Column(length: 255)]
@@ -71,11 +68,6 @@ class Contact implements Stringable
     public function __toString(): string
     {
         return $this->firstName.' '.$this->lastName;
-    }
-
-    public function getId(): ?int
-    {
-        return $this->id;
     }
 
     public function getEmail(): ?string

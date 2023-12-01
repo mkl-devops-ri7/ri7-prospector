@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Enum\ProspectionStatusEnum;
+use App\Entity\Enum\ProspectionTypeEnum;
 use App\Entity\Prospection;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
@@ -23,7 +24,7 @@ class ProspectionCrudController extends AbstractCrudController
         yield IdField::new('id')->hideOnForm();
         yield TextField::new('name');
         yield ChoiceField::new('status')->setChoices(ProspectionStatusEnum::cases());
-        yield ChoiceField::new('type')->setChoices(ProspectionStatusEnum::cases());
+        yield ChoiceField::new('type')->setChoices(ProspectionTypeEnum::cases());
         yield AssociationField::new('user');
         yield AssociationField::new('contact');
         yield AssociationField::new('actions')->hideOnForm();

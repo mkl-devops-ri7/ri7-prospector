@@ -9,7 +9,7 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 
-class AppFixturesContact extends Fixture implements DependentFixtureInterface
+class ContactFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
@@ -43,7 +43,7 @@ class AppFixturesContact extends Fixture implements DependentFixtureInterface
     public function getDependencies()
     {
         return [
-            AppFixturesCompany::class,
+            CompanyFixtures::class,
         ];
     }
 }

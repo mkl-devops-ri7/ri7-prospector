@@ -49,6 +49,8 @@ if [ "$1" = 'frankenphp' ] || [ "$1" = 'php' ] || [ "$1" = 'bin/console' ]; then
 		fi
 
 		if [ "$( find ./migrations -iname '*.php' -print -quit )" ]; then
+			php bin/console d:d:d -f
+			php bin/console d:d:c --if-not-exists
 			php bin/console doctrine:migrations:migrate --no-interaction
 		fi
 	fi
