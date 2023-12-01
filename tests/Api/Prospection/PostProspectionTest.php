@@ -46,6 +46,6 @@ class PostProspectionTest extends ApiTestCase
         ]);
 
         $this->assertResponseIsSuccessful();
-        $this->assertJsonContains(['@id' => '/']);
+        $this->assertJsonContains(['@type' => 'Prospection']);
     }
 }

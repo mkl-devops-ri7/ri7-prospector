@@ -4,9 +4,11 @@ namespace App\Entity\Trait;
 
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 trait TimestampableTrait
 {
+    #[Groups(['created_at:read'])]
     #[ORM\Column]
     private ?DateTimeImmutable $createdAt = null;
 

@@ -1,15 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello NewProspectionController!
-{% endblock %}
+{% block title %}Ri7 prospector - Accueil{% endblock %}
 
 {% block body %}
 	<section>
 		<div class="mx-auto max-w-screen-2xl px-4 py-16 sm:px-6 lg:px-8">
-			<div class="grid grid-cols-1 lg:h-screen lg:grid-cols-2">
+			<div class="grid grid-cols-1 lg:h-full lg:grid-cols-2">
 				<div class="relative z-10 lg:py-16">
 					<div class="relative h-64 sm:h-80 lg:h-full">
-						<img alt="House" src={{ asset('/assets/images/home_picture.jpg') }} class="absolute inset-0 h-full w-full object-cover"/>
+						<img alt="House" src="{{ asset('/assets/images/home_picture.jpg') }}" class="absolute inset-0 h-full w-full object-cover"/>
 					</div>
 				</div>
 
@@ -25,7 +24,7 @@
 							Découvrez Ri7 Prospector, l'appli ultime de prospection d'entreprise. Boostez votre croissance grâce à une analyse intelligente, une personnalisation pointue et une automatisation intuitive. Simplifiez votre prospection, ciblez vos prospects avec précision, et ouvrez la voie vers de nouvelles opportunités. Ri7 Prospector : votre allié stratégique pour conquérir le marché.
 						</p>
 
-						<a href={{path('app_new_prospection')}} class="mt-8 inline-block rounded border border-teal-600 bg-teal-600 px-12 py-3 text-sm font-medium text-white hover:bg-transparent hover:text-indigo-600 focus:outline-none focus:ring active:text-indigo-500">
+						<a href="{{ path('app_new_prospection') }}" class="mt-8 inline-block rounded border border-teal-600 bg-teal-600 px-12 py-3 text-sm font-medium text-white hover:bg-transparent hover:text-indigo-600 focus:outline-none focus:ring active:text-indigo-500">
 							Démarrez votre prospection !
 						</a>
 					</div>

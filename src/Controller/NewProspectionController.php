@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Enum\ProspectionTypeEnum;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -12,7 +13,7 @@ class NewProspectionController extends AbstractController
     public function index(): Response
     {
         return $this->render('new_prospection/index.html.twig', [
-            'controller_name' => 'NewProspectionController',
+            'types' => ProspectionTypeEnum::cases(),
         ]);
     }
 }
