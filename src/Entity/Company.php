@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use App\Entity\Trait\TimestampableTrait;
 use App\Repository\CompanyRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -11,12 +10,8 @@ use Stringable;
 #[ORM\Entity(repositoryClass: CompanyRepository::class)]
 class Company implements Stringable
 {
-    use TimestampableTrait;
-
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    use Trait\IdEntityTrait;
+    use Trait\TimestampableEntityTrait;
 
     #[ORM\Column(length: 255)]
     private ?string $siret = null;
@@ -32,11 +27,6 @@ class Company implements Stringable
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $logoUrl = null;
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
     public function getSiret(): ?string
     {

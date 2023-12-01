@@ -7,9 +7,7 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 
-use function Symfony\Component\Clock\now;
-
-class AppFixturesCompany extends Fixture
+class CompanyFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
@@ -21,7 +19,6 @@ class AppFixturesCompany extends Fixture
         $company->setLinkedInProfilUrl('https://fr.linkedin.com/');
         $company->setName($faker->company());
         $company->setLogoUrl('https://upload.wikimedia.org/wikipedia/commons/8/85/Logo-Test.png');
-        $company->setCreatedAt(now());
         $manager->persist($company);
         $manager->flush();
         $this->addReference('company-1', $company);
@@ -32,7 +29,6 @@ class AppFixturesCompany extends Fixture
         $companyTwo->setLinkedInProfilUrl('https://fr.linkedin.com/');
         $companyTwo->setName($faker->company());
         $companyTwo->setLogoUrl('https://upload.wikimedia.org/wikipedia/commons/8/85/Logo-Test.png');
-        $companyTwo->setCreatedAt(now());
         $manager->persist($company);
 
         $manager->flush();

@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use App\Entity\Trait\TimestampableTrait;
 use App\Repository\NotificationRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
@@ -10,11 +9,8 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: NotificationRepository::class)]
 class Notification
 {
-    use TimestampableTrait;
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    use Trait\IdEntityTrait;
+    use Trait\TimestampableEntityTrait;
 
     #[ORM\Column(length: 255)]
     private ?string $type = null;
@@ -31,11 +27,6 @@ class Notification
     #[ORM\ManyToOne(inversedBy: 'notifications')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $userTargeted = null;
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
     public function getType(): ?string
     {

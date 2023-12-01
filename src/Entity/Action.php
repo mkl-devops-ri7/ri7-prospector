@@ -3,16 +3,13 @@
 namespace App\Entity;
 
 use App\Repository\ActionRepository;
-use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ActionRepository::class)]
 class Action
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    use Trait\IdEntityTrait;
+    use Trait\TimestampableEntityTrait;
 
     #[ORM\Column(length: 255)]
     private ?string $type = null;
@@ -26,16 +23,8 @@ class Action
     #[ORM\Column(length: 255)]
     private ?string $text = null;
 
-    #[ORM\Column]
-    private ?DateTimeImmutable $createdAt = null;
-
     #[ORM\ManyToOne(inversedBy: 'actions')]
     private ?Prospection $prospection = null;
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
     public function getType(): ?string
     {
@@ -81,18 +70,6 @@ class Action
     public function setText(string $text): static
     {
         $this->text = $text;
-
-        return $this;
-    }
-
-    public function getCreatedAt(): ?DateTimeImmutable
-    {
-        return $this->createdAt;
-    }
-
-    public function setCreatedAt(DateTimeImmutable $createdAt): static
-    {
-        $this->createdAt = $createdAt;
 
         return $this;
     }

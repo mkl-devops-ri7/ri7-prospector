@@ -9,10 +9,7 @@ use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
 use App\Entity\Enum\ProspectionStatusEnum;
 use App\Entity\Enum\ProspectionTypeEnum;
-use App\Entity\Trait\IdEntityTrait;
-use App\Entity\Trait\TimestampableTrait;
 use App\Repository\ProspectionRepository;
-use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -33,8 +30,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[Post]
 class Prospection implements Stringable
 {
-    use IdEntityTrait;
-    use TimestampableTrait;
+    use Trait\IdEntityTrait;
+    use Trait\TimestampableEntityTrait;
 
     #[Groups(['prospection:read', 'prospection:write'])]
     #[ORM\Column(enumType: ProspectionStatusEnum::class)]
@@ -75,7 +72,6 @@ class Prospection implements Stringable
     public function __construct()
     {
         $this->actions = new ArrayCollection();
-        $this->createdAt = new DateTimeImmutable();
     }
 
     public function __toString(): string
