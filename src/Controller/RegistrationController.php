@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Security\EmailVerifier;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,6 +16,8 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
+
+use function is_string;
 
 class RegistrationController extends AbstractController
 {
@@ -36,7 +39,7 @@ class RegistrationController extends AbstractController
             $plainPassword = $form->get('plainPassword')->getData();
 
             if (!is_string($plainPassword)) {
-                throw new \Exception('The plain password is not valid.');
+                throw new Exception('The plain password is not valid.');
             }
 
             // encode the plain password
@@ -51,7 +54,7 @@ class RegistrationController extends AbstractController
             $entityManager->flush();
 
             if (!is_string($user->getEmail())) {
-                throw new \Exception('Address mail is not valid.');
+                throw new Exception('Address mail is not valid.');
             }
 
             // generate a signed url and email it to the user
@@ -80,7 +83,7 @@ class RegistrationController extends AbstractController
         // validate email confirmation link, sets User::isVerified=true and persists
         try {
             if (!$this->getUser() instanceof User) {
-                throw new \Exception('User not found');
+                throw new Exception('User not found');
             }
 
             $this->emailVerifier->handleEmailConfirmation($request, $this->getUser());

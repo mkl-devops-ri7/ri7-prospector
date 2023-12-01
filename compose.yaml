@@ -1,8 +1,10 @@
 services:
   php:
+    container_name: ${PROJECT_NAME}-php
     image: ${IMAGES_PREFIX:-}app-php
     restart: unless-stopped
     environment:
+      PHP_CS_FIXER_IGNORE_ENV: 1
       SERVER_NAME: ${SERVER_NAME:-localhost}, php:80
       MERCURE_PUBLISHER_JWT_KEY: ${CADDY_MERCURE_JWT_SECRET:-!ChangeThisMercureHubJWTSecretKey!}
       MERCURE_SUBSCRIBER_JWT_KEY: ${CADDY_MERCURE_JWT_SECRET:-!ChangeThisMercureHubJWTSecretKey!}
@@ -40,6 +42,7 @@ services:
 
   ###> doctrine/doctrine-bundle ###
   database:
+    container_name: ${PROJECT_NAME}-database
     image: postgres:${POSTGRES_VERSION:-15}-alpine
     environment:
       POSTGRES_DB: ${POSTGRES_DB:-app}

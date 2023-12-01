@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Entity\Trait\TimestampableTrait;
 use App\Repository\NotificationRepository;
+use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: NotificationRepository::class)]
@@ -25,7 +26,7 @@ class Notification
     private ?string $text = null;
 
     #[ORM\Column(nullable: true)]
-    private ?\DateTimeImmutable $readAt = null;
+    private ?DateTimeImmutable $readAt = null;
 
     #[ORM\ManyToOne(inversedBy: 'notifications')]
     #[ORM\JoinColumn(nullable: false)]
@@ -72,12 +73,12 @@ class Notification
         return $this;
     }
 
-    public function getReadAt(): ?\DateTimeImmutable
+    public function getReadAt(): ?DateTimeImmutable
     {
         return $this->readAt;
     }
 
-    public function setReadAt(?\DateTimeImmutable $readAt): static
+    public function setReadAt(?DateTimeImmutable $readAt): static
     {
         $this->readAt = $readAt;
 

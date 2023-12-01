@@ -9,6 +9,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Stringable;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ApiResource(
@@ -19,7 +20,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
     denormalizationContext: ['groups' => ['contact:write']],
 )]
 #[ORM\Entity(repositoryClass: ContactRepository::class)]
-class Contact implements \Stringable
+class Contact implements Stringable
 {
     #[Groups(['contact:read'])]
     #[ORM\Id]

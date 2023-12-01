@@ -6,9 +6,10 @@ use App\Entity\Trait\TimestampableTrait;
 use App\Repository\CompanyRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Stringable;
 
 #[ORM\Entity(repositoryClass: CompanyRepository::class)]
-class Company implements \Stringable
+class Company implements Stringable
 {
     use TimestampableTrait;
 

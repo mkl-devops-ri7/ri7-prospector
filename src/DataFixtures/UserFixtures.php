@@ -25,5 +25,14 @@ class UserFixtures extends Fixture
         $user->setIsVerified(true);
         $manager->persist($user);
         $manager->flush();
+
+        $user = new User();
+        $user->setEmail('john.doe@gmail.com');
+        $user->setFirstname('John');
+        $user->setLastname('Doe');
+        $user->setPassword($this->hasher->hashPassword($user, 'azerty'));
+        $user->setIsVerified(true);
+        $manager->persist($user);
+        $manager->flush();
     }
 }
