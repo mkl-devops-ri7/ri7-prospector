@@ -4,11 +4,16 @@ ifneq ("$(wildcard .env.local)","")
 endif
 env=dev
 
+isContainerRunning := $(shell docker info > /dev/null 2>&1 && docker ps | grep "${PROJECT_NAME}-php" > /dev/null 2>&1 && echo 1 || echo 0)
+
 # Executables (local)
 DOCKER_COMP = docker compose
+PHP_CONT    =
 
-# Docker containers
-PHP_CONT = $(DOCKER_COMP) exec php
+ifeq ($(isContainerRunning),1)
+	# Docker containers
+    PHP_CONT = $(DOCKER_COMP) exec php
+endif
 
 # Executables
 PHP      = $(PHP_CONT) php
@@ -28,7 +33,7 @@ docker-build: ## Builds the Docker images
 	@$(DOCKER_COMP) build --pull --no-cache
 
 docker-up: ## Start the docker hub in detached mode (no logs)
-	@$(DOCKER_COMP) up --detach
+	@$(DOCKER_COMP) up --detach --wait
 
 docker-start: docker-build docker-up ## Build and start the containers
 
@@ -44,7 +49,7 @@ docker-ls: ## Show live logs
 	@$(DOCKER_COMP) lsdocker
 
 docker-sh: ## Connect to the PHP FPM container
-	@$(PHP_CONT) sh
+	@$(PHP_CONT) zsh
 
 ## —— Composer 🧙 ——————————————————————————————————————————————————————————————
 composer: ## Run composer, pass the parameter "c=" to run a given command, example: make composer c='req symfony/orm-pack'
@@ -64,7 +69,7 @@ cc: c=c:c ## Clear the cache
 cc: sf
 
 stan:
-	@APP_ENV=$(env) $(PHP_CONT) ./vendor/bin/phpstan analyse $q --memory-limit 256M
+	@APP_ENV=$(env) $(PHP_CONT) ./vendor/bin/phpstan analyse --memory-limit=256M $q
 
 cs-fix:
 	@APP_ENV=$(env) $(PHP_CONT) ./vendor/bin/php-cs-fixer fix $q --allow-risky=yes
@@ -75,8 +80,15 @@ lint:
 	$(SYMFONY) lint:twig templates/ $q
 	$(SYMFONY) doctrine:schema:validate --skip-sync $q
 
-
 analyze: lint stan cs-fix #infection ## Run all analysis tools
+
+jobs ?= $(shell nproc)
+test: env=test
+test: database-drop doctrine-schema-create doctrine-fixtures ## Run tests
+	@rm -rf var/test{0-9}+.db
+	@tee $(foreach TEST_TOKEN,$(shell seq 1 $(jobs)),var/test$(TEST_TOKEN).db) < var/test.db >/dev/null
+	@APP_ENV=$(env) ./vendor/bin/paratest --processes=$(jobs) --runner=WrapperRunner $(c)
+	@rm -rf var/test{0-9}+.db
 
 database-drop:
 	@APP_ENV=$(env) $(SYMFONY) doctrine:schema:drop --force --full-database $q

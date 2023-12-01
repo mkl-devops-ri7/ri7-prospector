@@ -4,7 +4,7 @@ namespace App\Entity\Enum;
 
 enum ProspectionTypeEnum: string
 {
-    case ColdProspection = 'cold prospecting';
-    case UnsolicitedJobApplication = 'unsolicited job application';
-    case JobApplication = 'job application';
+    case ColdProspection = 'cold_prospecting';
+    case UnsolicitedJobApplication = 'unsolicited_job_application';
+    case JobApplication = 'job_application';
 }

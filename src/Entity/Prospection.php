@@ -3,37 +3,37 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
-use ApiPlatform\Metadata\Delete;
-use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
 use App\Entity\Enum\ProspectionStatusEnum;
+use App\Entity\Enum\ProspectionTypeEnum;
+use App\Entity\Trait\IdEntityTrait;
 use App\Entity\Trait\TimestampableTrait;
 use App\Repository\ProspectionRepository;
+use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Stringable;
 
 #[ORM\Entity(repositoryClass: ProspectionRepository::class)]
-#[ApiResource(
-    operations: [
-        new Post(),
-        new Patch(),
-        new Delete(),
-    ]
-)]
-class Prospection implements \Stringable
+#[ApiResource(security: "is_granted('ROLE_USER')")]
+#[Get]
+#[Put(security: "is_granted('ROLE_ADMIN') or object.owner == user")]
+#[GetCollection]
+#[Post]
+class Prospection implements Stringable
 {
+    use IdEntityTrait;
     use TimestampableTrait;
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
 
     #[ORM\Column(enumType: ProspectionStatusEnum::class)]
     private ProspectionStatusEnum $status = ProspectionStatusEnum::Draft;
 
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[ORM\Column(type: Types::TEXT)]
     private ?string $comment = null;
 
     /**
@@ -43,7 +43,7 @@ class Prospection implements \Stringable
     private Collection $actions;
 
     #[ORM\ManyToOne(inversedBy: 'prospections')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn]
     private ?Contact $contact = null;
 
     #[ORM\ManyToOne(inversedBy: 'prospections')]
@@ -53,23 +53,18 @@ class Prospection implements \Stringable
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\Column(enumType: ProspectionStatusEnum::class, options: ['default' => ProspectionStatusEnum::Draft])]
-    private ?ProspectionStatusEnum $type = null;
+    #[ORM\Column(enumType: ProspectionTypeEnum::class)]
+    private ?ProspectionTypeEnum $type = null;
 
     public function __construct()
     {
         $this->actions = new ArrayCollection();
-        $this->createdAt = new \DateTimeImmutable();
+        $this->createdAt = new DateTimeImmutable();
     }
 
     public function __toString(): string
     {
         return $this->name ?? '';
-    }
-
-    public function getId(): ?int
-    {
-        return $this->id;
     }
 
     public function getStatus(): ProspectionStatusEnum
@@ -162,12 +157,12 @@ class Prospection implements \Stringable
         return $this;
     }
 
-    public function getType(): ?ProspectionStatusEnum
+    public function getType(): ?ProspectionTypeEnum
     {
         return $this->type;
     }
 
-    public function setType(ProspectionStatusEnum $type): static
+    public function setType(ProspectionTypeEnum $type): static
     {
         $this->type = $type;
 
