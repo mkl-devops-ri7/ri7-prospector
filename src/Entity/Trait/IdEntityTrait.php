@@ -13,7 +13,7 @@ use function is_string;
 
 trait IdEntityTrait
 {
-    #[Groups(['id', 'id:write'])]
+    #[Groups(['id:read', 'id:write'])]
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: 'CUSTOM')]
     #[ORM\Column(type: 'uuid', unique: true)]

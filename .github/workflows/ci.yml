@@ -12,6 +12,16 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  lint:
+    name: Docker Lint
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v4
+      -
+        name: Lint Dockerfile
+        uses: hadolint/hadolint-action@v3.1.0
   tests:
     name: Tests
     runs-on: ubuntu-latest
@@ -38,6 +48,8 @@ jobs:
         run: curl -v -o /dev/null http://localhost
       - name: Check HTTPS reachability
         run: curl -vk -o /dev/null https://localhost
+      - name: Run check lint
+        run: make lint
       - name: Run PHPStan
         run: make stan
       - name: Run PHPCs-fixer
@@ -49,8 +61,8 @@ jobs:
         if: false # Remove this line if Doctrine Migrations is installed
         run: docker compose exec -T php bin/console -e test doctrine:migrations:migrate --no-interaction
       - name: Run PHPUnit
-        if: false # Remove this line if PHPUnit is installed
-        run: docker compose exec -T php bin/phpunit
+        run: make test
       - name: Doctrine Schema Validator
         if: false # Remove this line if Doctrine ORM is installed
         run: docker compose exec -T php bin/console -e test doctrine:schema:validate
+        

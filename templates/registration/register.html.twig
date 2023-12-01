@@ -67,9 +67,6 @@
                             }) }}
                         </div>
 
-
-
-
                         <div class="col-span-6 sm:flex sm:items-center sm:gap-4">
                             <button
                                 type="submit"
@@ -89,18 +86,5 @@
         </div>
     </section>
 
-
-
-
-
-
-    {% for flash_error in app.flashes('verify_email_error') %}
-        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
-    {% endfor %}
-
-    <h1>Register</h1>
-
     {{ form_errors(registrationForm) }}
-
-
 {% endblock %}
