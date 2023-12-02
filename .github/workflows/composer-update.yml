@@ -1,0 +1,21 @@
+name: Composer update
+
+on:
+  pull_request:  ~
+  schedule:
+    - cron: '0 0 * * *' #UTC
+
+jobs:
+  composer:
+    uses: kawax/composer-workflow/.github/workflows/update.yml@v1
+    secrets:
+      token: ${{ secrets.ACTION_TOKEN }}
+    with:
+      php: 8.3
+      extensions: mbstring xml curl
+      git-name: mkldevops[bot]
+      git-email: mkl.devops@gmail.com
+      composer-path: ./composer
+      branch: chore-composer-update
+      title: "chore: composer update"
+      commit-message: "chore: composer update"
