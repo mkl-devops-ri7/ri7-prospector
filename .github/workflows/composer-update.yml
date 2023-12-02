@@ -1,7 +1,9 @@
 name: Composer update
 
 on:
-  pull_request:  ~
+  push: 
+    branches:
+      - '**'
   schedule:
     - cron: '0 0 * * *' #UTC
 
