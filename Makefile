@@ -127,8 +127,7 @@ current_branch=$(shell git rev-parse --abbrev-ref HEAD)
 git-push:
 	git push origin "$(current_branch)" --force-with-lease --force-if-includes
 
-commit: analyze
-env=test
-commit: test
-env=dev
-commit: git-auto-commit git-rebase git-push ## Commit and push the current branch
+commit:
+	$(MAKE) analyze
+	$(MAKE) test env=test
+	$(MAKE) git-auto-commit git-rebase git-push ## Commit and push the current branch
