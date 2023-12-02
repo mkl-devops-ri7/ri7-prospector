@@ -7,18 +7,20 @@ env=dev
 isContainerRunning := $(shell docker info > /dev/null 2>&1 && docker ps | grep "${PROJECT_NAME}-php" > /dev/null 2>&1 && echo 1 || echo 0)
 
 # Executables (local)
-DOCKER_COMP = docker compose
-PHP_CONT    =
+DOCKER_COMP 	= docker compose
+PHP_CONT    	= APP_ENV=$(env)
+PHP_CONT_TEST   = APP_ENV=test
 
 ifeq ($(isContainerRunning),1)
 	# Docker containers
-    PHP_CONT = $(DOCKER_COMP) exec php
+    PHP_CONT = $(DOCKER_COMP) exec -e APP_ENV=$(env) php
+    PHP_CONT_TEST = $(DOCKER_COMP) exec -e APP_ENV=test php
 endif
 
 # Executables
-PHP      = $(PHP_CONT) php
+PHP      = $(PHP_CONT) symfony
 COMPOSER = $(PHP_CONT) composer
-SYMFONY  = $(PHP) bin/console
+SYMFONY  = $(PHP) console
 
 # Misc
 .DEFAULT_GOAL = help
@@ -73,10 +75,10 @@ cc: c=c:c ## Clear the cache
 cc: sf
 
 stan:
-	@APP_ENV=$(env) $(PHP_CONT) ./vendor/bin/phpstan analyse --memory-limit=256M $q
+	$(PHP_CONT) ./vendor/bin/phpstan analyse --memory-limit=256M $q
 
 cs-fix:
-	@APP_ENV=$(env) $(PHP_CONT) ./vendor/bin/php-cs-fixer fix $q --allow-risky=yes
+	$(PHP_CONT) ./vendor/bin/php-cs-fixer fix $q --allow-risky=yes
 
 lint:
 	$(SYMFONY) lint:container $q
@@ -87,27 +89,26 @@ lint:
 analyze: lint stan cs-fix #infection ## Run all analysis tools
 
 jobs ?= $(shell nproc)
-test: env=test
 test: database-drop doctrine-schema-create doctrine-fixtures ## Run tests
-	@test -f ./var/test{0-9}+.db && rm -rf var/test{0-9}+.db
-	@tee $(foreach TEST_TOKEN,$(shell seq 1 $(jobs)),var/test$(TEST_TOKEN).db) < var/test.db >/dev/null
-	@APP_ENV=$(env) ./vendor/bin/paratest --processes=$(jobs) --runner=WrapperRunner $(c)
-	@rm -rf var/test{0-9}+.db
+	$(PHP_CONT) rm -rf var/test{0-9}+.db
+	$(PHP_CONT) zsh -c 'tee $(foreach TEST_TOKEN,$(shell seq 1 $(jobs)),var/test$(TEST_TOKEN).db) < var/test.db' >/dev/null
+	$(PHP_CONT) ./vendor/bin/paratest --processes=$(jobs) --runner=WrapperRunner $(c)
+	$(PHP_CONT) rm -rf var/test{0-9}+.db
 
 database-drop:
-	@APP_ENV=$(env) $(SYMFONY) doctrine:schema:drop --force --full-database $q
+	$(SYMFONY) doctrine:schema:drop --force --full-database $q
 
 doctrine-migration:
-	@APP_ENV=$(env) $(SYMFONY) make:migration $q
+	$(SYMFONY) make:migration $q
 
 doctrine-migrate: ## Apply doctrine migrate
-	@APP_ENV=$(env) $(SYMFONY) doctrine:migrations:migrate -n $q
+	$(SYMFONY) doctrine:migrations:migrate -n $q
 
 doctrine-schema-create:
-	@APP_ENV=$(env) $(SYMFONY) doctrine:schema:create $q
+	$(SYMFONY) doctrine:schema:create $q
 
 doctrine-fixtures:
-	@APP_ENV=$(env) $(SYMFONY) doctrine:fixtures:load -n $q
+	$(SYMFONY) doctrine:fixtures:load -n $q
 
 doctrine-reset: database-drop doctrine-migrate
 doctrine-apply-migration: doctrine-reset doctrine-migration doctrine-reset  ## Apply doctrine migrate and reset database
@@ -127,4 +128,7 @@ current_branch=$(shell git rev-parse --abbrev-ref HEAD)
 git-push:
 	git push origin "$(current_branch)" --force-with-lease --force-if-includes
 
-commit: analyze git-auto-commit git-rebase git-push ## Commit and push the current branch
+commit: analyze
+env=test
+commit: test
+commit: git-auto-commit git-rebase git-push ## Commit and push the current branch
