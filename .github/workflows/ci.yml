@@ -54,13 +54,12 @@ jobs:
         run: make stan
       - name: Run PHPCs-fixer
         run: make cs-fix
-      - name: Create test database
-        run:  make doctrine-schema-create env=test
       - name: Run migrations
-        run: docker compose exec -T php bin/console -e test doctrine:migrations:migrate --no-interaction
+        run: make doctrine-migrate
+      - name: Run fixtures
+        run: make doctrine-fixtures
       - name: Run PHPUnit
         run: make test
-      - name: Doctrine Schema Validator
-        if: false # Remove this line if Doctrine ORM is installed
-        run: docker compose exec -T php bin/console -e test doctrine:schema:validate
+      - name: Check lint
+        run: make lint
         
