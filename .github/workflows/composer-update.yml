@@ -15,7 +15,6 @@ jobs:
       extensions: mbstring xml curl
       git-name: mkldevops[bot]
       git-email: mkl.devops@gmail.com
-      composer-path: ./composer
       branch: chore-composer-update
       title: "chore: composer update"
       commit-message: "chore: composer update"
