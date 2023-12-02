@@ -2,6 +2,7 @@ include .env
 ifneq ("$(wildcard .env.local)","")
 	include .env.local
 endif
+
 env=dev
 
 isContainerRunning := $(shell docker info > /dev/null 2>&1 && docker ps | grep "${PROJECT_NAME}-php" > /dev/null 2>&1 && echo 1 || echo 0)
@@ -9,12 +10,10 @@ isContainerRunning := $(shell docker info > /dev/null 2>&1 && docker ps | grep "
 # Executables (local)
 DOCKER_COMP 	= docker compose
 PHP_CONT    	= APP_ENV=$(env)
-PHP_CONT_TEST   = APP_ENV=test
 
 ifeq ($(isContainerRunning),1)
 	# Docker containers
     PHP_CONT = $(DOCKER_COMP) exec -e APP_ENV=$(env) php
-    PHP_CONT_TEST = $(DOCKER_COMP) exec -e APP_ENV=test php
 endif
 
 # Executables
@@ -131,4 +130,5 @@ git-push:
 commit: analyze
 env=test
 commit: test
+env=dev
 commit: git-auto-commit git-rebase git-push ## Commit and push the current branch
