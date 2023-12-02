@@ -89,7 +89,7 @@ analyze: lint stan cs-fix #infection ## Run all analysis tools
 jobs ?= $(shell nproc)
 test: env=test
 test: database-drop doctrine-schema-create doctrine-fixtures ## Run tests
-	@rm -rf var/test{0-9}+.db
+	@test -f ./var/test{0-9}+.db && rm -rf var/test{0-9}+.db
 	@tee $(foreach TEST_TOKEN,$(shell seq 1 $(jobs)),var/test$(TEST_TOKEN).db) < var/test.db >/dev/null
 	@APP_ENV=$(env) ./vendor/bin/paratest --processes=$(jobs) --runner=WrapperRunner $(c)
 	@rm -rf var/test{0-9}+.db
