@@ -128,6 +128,6 @@ git-push:
 	git push origin "$(current_branch)" --force-with-lease --force-if-includes
 
 commit:
-	$(MAKE) --no-print-directory analyze
-	$(MAKE) --no-print-directory test env=test
-	$(MAKE) --no-print-directory git-auto-commit git-rebase git-push ## Commit and push the current branch
+	@$(MAKE) --no-print-directory analyze
+	@$(MAKE) --no-print-directory test env=test
+	@$(MAKE) --no-print-directory git-auto-commit git-rebase git-push ## Commit and push the current branch
