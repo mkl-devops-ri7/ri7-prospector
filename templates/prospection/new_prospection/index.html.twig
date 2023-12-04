@@ -50,8 +50,7 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data.id) {
-                        console.log(data.id)
-                        window.location.href = "{{ path('app_home') }}"
+                        window.location.href = Routing.generate('app_prospection_show', { id: data.id})
                     }
                 })
         })

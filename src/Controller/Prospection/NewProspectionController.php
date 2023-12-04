@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Prospection;
 
 use App\Entity\Enum\ProspectionTypeEnum;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -9,10 +9,10 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class NewProspectionController extends AbstractController
 {
-    #[Route('/new/prospection', name: 'app_new_prospection')]
-    public function index(): Response
+    #[Route('/prospection/new', name: 'app_prospection_new')]
+    public function __invoke(): Response
     {
-        return $this->render('new_prospection/index.html.twig', [
+        return $this->render('prospection/new_prospection/index.html.twig', [
             'types' => ProspectionTypeEnum::cases(),
         ]);
     }

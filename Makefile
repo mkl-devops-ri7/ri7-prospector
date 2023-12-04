@@ -10,10 +10,12 @@ isContainerRunning := $(shell docker info > /dev/null 2>&1 && docker ps | grep "
 # Executables (local)
 DOCKER_COMP 	= docker compose
 PHP_CONT    	= APP_ENV=$(env)
+PHP_CONT_TEST   = APP_ENV=test
 
 ifeq ($(isContainerRunning),1)
 	# Docker containers
     PHP_CONT = $(DOCKER_COMP) exec -e APP_ENV=$(env) php
+    PHP_CONT_TEST = $(DOCKER_COMP) exec -e APP_ENV=test php
 endif
 
 # Executables
@@ -66,6 +68,10 @@ composer-update: c=update --prefer-dist --no-progress --no-scripts --no-interact
 composer-update: composer
 
 ## —— Symfony 🎵 ———————————————————————————————————————————————————————————————
+exec:
+	@$(eval c ?=)
+	docker compose exec -e APP_ENV=env php $(c)
+
 sf: ## List all Symfony commands or pass the parameter "c=" to run a given command, example: make sf c=about
 	@$(eval c ?=)
 	@$(SYMFONY) $(c)
@@ -87,8 +93,14 @@ lint:
 
 analyze: lint stan cs-fix #infection ## Run all analysis tools
 
+tests-all: ## Run all tests
+	@$(MAKE) --no-print-directory database-drop env=test
+	@$(MAKE) --no-print-directory doctrine-schema-create env=test
+	@$(MAKE) --no-print-directory doctrine-fixtures env=test
+	@$(MAKE) --no-print-directory test env=test
+
 jobs ?= $(shell nproc)
-test: database-drop doctrine-schema-create doctrine-fixtures ## Run tests
+test: ## Run tests
 	$(PHP_CONT) rm -rf var/test{0-9}+.db
 	$(PHP_CONT) zsh -c 'tee $(foreach TEST_TOKEN,$(shell seq 1 $(jobs)),var/test$(TEST_TOKEN).db) < var/test.db' >/dev/null
 	$(PHP_CONT) ./vendor/bin/paratest --processes=$(jobs) --runner=WrapperRunner $(c)
