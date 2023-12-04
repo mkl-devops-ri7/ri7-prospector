@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des prospection en cours{% endblock %}
+
+{% block body %}
+    <h1>Liste des prospection en cours</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Client</th>
+                <th>Contact</th>
+                <th>Type</th>
+                <th>Statut</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for prospection in prospections %}
+            <tr>
+                <td>{{ prospection.id }}</td>
+                <td>{{ prospection.name }}</td>
+                <td>{{ prospection.contact|default('') }}</td>
+                <td>{{ prospection.status.value }}</td>
+                <td>
+                    <a href="{{ path('app_prospection_show', {'id': prospection.id}) }}">show</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">Aucune prospection en cours</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_prospection_new') }}">Create new</a>
+{% endblock %}
