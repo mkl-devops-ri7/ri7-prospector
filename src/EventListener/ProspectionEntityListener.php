@@ -19,6 +19,10 @@ readonly class ProspectionEntityListener
 
     public function __invoke(Prospection $prospection): void
     {
+        if (null !== $prospection->getUser()) {
+            return;
+        }
+
         $user = $this->security->getUser();
 
         if (!$user instanceof User) {
