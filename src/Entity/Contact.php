@@ -11,6 +11,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Stringable;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ApiResource(
     operations: [
@@ -25,6 +26,8 @@ class Contact implements Stringable
     use Trait\IdEntityTrait;
     use Trait\TimestampableEntityTrait;
 
+    #[Assert\NotBlank]
+    #[Assert\Email]
     #[Groups(['contact:read', 'contact:write'])]
     #[ORM\Column(length: 255)]
     private ?string $email = null;
@@ -33,10 +36,14 @@ class Contact implements Stringable
     #[ORM\Column(length: 255)]
     private ?string $job = null;
 
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 2, max: 255)]
     #[Groups(['contact:read', 'contact:write'])]
     #[ORM\Column(length: 255)]
     private ?string $firstName = null;
 
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 2, max: 255)]
     #[Groups(['contact:read', 'contact:write'])]
     #[ORM\Column(length: 255)]
     private ?string $lastName = null;
@@ -45,6 +52,8 @@ class Contact implements Stringable
     #[ORM\Column(type: Types::TEXT)]
     private ?string $linkedinProfilUrl = null;
 
+    #[Assert\Blank]
+    #[Assert\Length(min: 10, max: 20)]
     #[Groups(['contact:read', 'contact:write'])]
     #[ORM\Column(length: 20)]
     private ?string $phoneNumber = null;
