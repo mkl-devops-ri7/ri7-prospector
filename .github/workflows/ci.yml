@@ -59,7 +59,7 @@ jobs:
       - name: Run fixtures
         run: make doctrine-fixtures
       - name: Run PHPUnit
-        run: make test env=test
+        run: make tests-all env=test
       - name: Check lint
         run: make lint
         
