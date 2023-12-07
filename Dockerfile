@@ -2,6 +2,7 @@
 
 FROM mkldevops/frankenphp:8.3 AS frankenphp_base
 
+WORKDIR /app
 RUN chmod 777 /usr/local/bin/frankenphp
 
 # Dev FrankenPHP image
