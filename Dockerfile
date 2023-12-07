@@ -1,12 +1,9 @@
 #syntax=docker/dockerfile:1.4
 
-FROM mkldevops/frankenphp:8.2 AS frankenphp_base
+FROM mkldevops/frankenphp:8.3 AS frankenphp_base
 
 WORKDIR /app
-
-COPY --link --chmod=755 frankenphp/docker-entrypoint.sh /usr/local/bin/docker-entrypoint
-
-ENTRYPOINT ["docker-entrypoint"]
+RUN chmod 777 /usr/local/bin/frankenphp
 
 # Dev FrankenPHP image
 FROM frankenphp_base AS frankenphp_dev
@@ -29,12 +26,11 @@ CMD [ "frankenphp", "run", "--config", "/etc/caddy/Caddyfile", "--watch" ]
 FROM frankenphp_base AS frankenphp_prod
 
 ENV APP_ENV=prod
-ENV FRANKENPHP_CONFIG="import worker.Caddyfile"
+#ENV FRANKENPHP_CONFIG="import worker.Caddyfile"
 
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 
 COPY --link frankenphp/conf.d/app.prod.ini $PHP_INI_DIR/conf.d/
-COPY --link frankenphp/worker.Caddyfile /etc/caddy/worker.Caddyfile
 
 # prevent the reinstallation of vendors at every changes in the source code
 COPY --link composer.* symfony.* ./

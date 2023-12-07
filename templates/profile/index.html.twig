@@ -1,20 +1,46 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ProfileController!{% endblock %}
+{% block title %}User Profile{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    {{ form_start(form, { 'attr': { 'class' : 'max-w-md mx-auto bg-white' }}) }}
+        <!--
+    // v0 by Vercel.
+    // https://v0.dev/t/ASBX0xh7xXJ
+    -->
+        <div class="bg-card text-card-foreground w-full max-w-lg" data-v0-t="card">
+            <div class="flex flex-col space-y-1.5 p-6">
+                <h3 class="text-2xl font-semibold leading-none tracking-tight">{{ 'User Profile'|trans }}</h3>
+                <p class="text-sm text-muted-foreground">{{ 'Update your profile information.'|trans }}</p>
+            </div>
+            <div class="p-6 space-y-4">
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="space-y-2">
+                        {{ form_label(form.firstname, 'Firstname',  { 'label_attr' : { 'class': 'text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'} }) }}
+                        {{ form_widget(form.firstname, { 'attr': { 'class': 'flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50'} }) }}
+                    </div>
+                    <div class="space-y-2">
+                        {{ form_label(form.lastname, 'Lastname',  { 'label_attr' : { 'class': 'text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'} }) }}
+                        {{ form_widget(form.lastname, { 'attr': { 'class': 'flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50'} }) }}
+                    </div>
+                </div>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+                <div class="space-y-2">
+                    {{ form_label(form.email, 'Email',  { 'label_attr' : { 'class': 'text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'} }) }}
+                    {{ form_widget(form.email, { 'attr': { 'class': 'flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50'} }) }}
+                </div>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/app/src/Controller/ProfileController.php'|file_link(0) }}">src/Controller/ProfileController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/app/templates/profile/index.html.twig'|file_link(0) }}">templates/profile/index.html.twig</a></code></li>
-    </ul>
-</div>
+                <div class="space-y-2">
+                    {{ form_label(form.linkedinProfilUrl, 'LinkedIn Profile URL',  { 'label_attr' : { 'class': 'text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'} }) }}
+                    {{ form_widget(form.linkedinProfilUrl, { 'attr': { 'class': 'flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50'} }) }}
+                </div>
+            </div>
+            <div class="flex items-center p-6">
+                <button
+                    class="inline-flex items-center gap-2 rounded border border-teal-600 bg-teal-600 px-8 py-3 text-white hover:bg-transparent hover:text-indigo-600 focus:outline-none focus:ring active:text-indigo-500">
+                    {{ 'Save'|trans }}
+                </button>
+            </div>
+        </div>
+    {{ form_end(form) }}
 {% endblock %}
