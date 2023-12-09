@@ -141,5 +141,5 @@ git-push:
 
 commit:
 	@$(MAKE) --no-print-directory analyze
-	@$(MAKE) --no-print-directory test env=test
+	@$(MAKE) --no-print-directory tests-all
 	@$(MAKE) --no-print-directory git-auto-commit git-rebase git-push ## Commit and push the current branch
