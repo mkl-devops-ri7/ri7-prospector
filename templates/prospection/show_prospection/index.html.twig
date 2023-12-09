@@ -3,7 +3,10 @@
 {% block title %}Prospection {{ prospection }}{% endblock %}
 
 {% block body %}
-    <div class="example-wrapper">
+    <div class="max-w-md mx-auto bg-white my-1">
         <h1 class="text-center text-teal-600 text-xl">Prospection <strong>{{ prospection }}</strong></h1>
+
+
+        {%  include 'prospection/show_prospection/_includes/contacts.html.twig' %}
     </div>
 {% endblock %}
