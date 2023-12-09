@@ -60,7 +60,7 @@ composer: ## Run composer, pass the parameter "c=" to run a given command, examp
 	@$(COMPOSER) $(c)
 
 vendor: ## Install vendors according to the current composer.lock file
-vendor: c=install --prefer-dist --no-dev --no-progress --no-scripts --no-interaction
+vendor: c=install --prefer-dist --no-progress --no-scripts --no-interaction
 vendor: composer
 
 composer-update: ## Composer update
@@ -141,5 +141,5 @@ git-push:
 
 commit:
 	@$(MAKE) --no-print-directory analyze
-	@$(MAKE) --no-print-directory test env=test
+	@$(MAKE) --no-print-directory tests-all
 	@$(MAKE) --no-print-directory git-auto-commit git-rebase git-push ## Commit and push the current branch
