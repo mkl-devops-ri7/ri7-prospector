@@ -7,12 +7,12 @@
 </div>
 
 <div class="relative">
-    <label for="Search" class="sr-only"> Search </label>
+    <label for="contact-search" class="sr-only"> Search </label>
 
     <input
         type="text"
-        name="contact-reference"
-        id="contact-reference"
+        name="contact-search"
+        id="contact-search"
         placeholder="{{ 'Name or email of contact'|trans }}"
         class="w-full rounded-md border-gray-200 py-3 pl-10 shadow-sm sm:text-sm"
     />
@@ -38,3 +38,49 @@
         </button>
     </span>
 </div>
+
+<ul id="contact-list" class="invisible z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"></ul>
+
+<script type="application/javascript" defer>
+    document.addEventListener("DOMContentLoaded", function () {
+        const autocompleteInput = document.getElementById("contact-search");
+        const autocompleteList = document.getElementById("contact-list");
+
+        autocompleteInput.addEventListener("input", function () {
+            const inputValue = this.value.trim();
+
+            // Efface la liste des suggestions
+            autocompleteList.innerHTML = '';
+
+            // Vérifie si la valeur n'est pas vide
+            if (inputValue.length > 3) {
+                autocompleteList.classList.remove('invisible');
+
+                // Appel à l'API avec la valeur de l'input
+                // Remplacez l'URL de l'API par la vôtre
+                fetch('/api/contacts?' +  new URLSearchParams({
+                    firstName: inputValue,
+                    lastName: inputValue,
+                    email: inputValue,
+                }))
+                    .then(response => response.json())
+                    .then(data => {
+                        const contacts = data['hydra:member'];
+                        contacts.forEach(item => {
+                            const li = document.createElement("li");
+                            li.className = 'relative cursor-default select-none py-2 pl-3 pr-9 text-gray-900'
+                            li.textContent = item.firstName + ' ' + item.lastName + ' (' + item.email + ')';
+
+                            // Ajoute un écouteur de clic pour gérer la sélection de l'élément
+                            li.addEventListener("click", function () {
+                                console.log('Contact sélectionné :', item);
+                            });
+
+                            autocompleteList.appendChild(li);
+                        });
+                    })
+                    .catch(error => console.error('Erreur lors de la récupération des suggestions :', error));
+            }
+        });
+    });
+</script>
