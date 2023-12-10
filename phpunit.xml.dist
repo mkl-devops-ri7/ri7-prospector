@@ -20,6 +20,7 @@
         <server name="SHELL_VERBOSITY" value="-1" />
         <server name="SYMFONY_PHPUNIT_REMOVE" value="" />
         <server name="SYMFONY_PHPUNIT_VERSION" value="10.4" />
+        <server name="SYMFONY_DEPRECATIONS_HELPER" value="disabled" />
     </php>
 
     <testsuites>
@@ -35,5 +36,6 @@
     </source>
 
     <extensions>
+        <bootstrap class="DAMA\DoctrineTestBundle\PHPUnit\PHPUnitExtension" />
     </extensions>
 </phpunit>

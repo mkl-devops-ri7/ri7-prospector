@@ -2,7 +2,10 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
 use App\Repository\ContactRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -14,12 +17,12 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ApiResource(
-    operations: [
-        new Post(),
-    ],
     normalizationContext: ['groups' => ['contact:read', 'id:read', 'created_at:read']],
     denormalizationContext: ['groups' => ['contact:write']],
 )]
+#[Post]
+#[GetCollection]
+#[ApiFilter(SearchFilter::class, properties: ['firstName' => 'partial', 'lastName' => 'partial', 'email' => 'partial'])]
 #[ORM\Entity(repositoryClass: ContactRepository::class)]
 class Contact implements Stringable
 {

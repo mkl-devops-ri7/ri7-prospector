@@ -1,1 +1,1 @@
-{"version":1,"defects":{"App\\Tests\\Api\\Prospection\\PostProspectionTest::testSomething":7},"times":{"App\\Tests\\Api\\Prospection\\PostProspectionTest::testSomething":0.245}}
+{"version":1,"defects":{"App\\Tests\\Api\\Prospection\\PostProspectionTest::testSomething":7,"App\\Tests\\Api\\Contact\\GetContactTest::testSomething":8},"times":{"App\\Tests\\Api\\Prospection\\PostProspectionTest::testSomething":0.245,"App\\Tests\\Api\\Contact\\GetContactTest::testSomething":0.727,"App\\Tests\\Api\\Contact\\GetContactTest::testFilters":0.157}}
