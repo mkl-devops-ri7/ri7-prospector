@@ -2,11 +2,11 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
+use App\Filter\OrSearchFilter;
 use App\Repository\ContactRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -22,7 +22,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 )]
 #[Post]
 #[GetCollection]
-#[ApiFilter(SearchFilter::class, properties: ['firstName' => 'partial', 'lastName' => 'partial', 'email' => 'partial'])]
+#[ApiFilter(OrSearchFilter::class, properties: ['firstName', 'lastName', 'email'])]
 #[ORM\Entity(repositoryClass: ContactRepository::class)]
 class Contact implements Stringable
 {
