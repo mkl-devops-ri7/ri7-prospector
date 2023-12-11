@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class IndexProspectionController extends AbstractController
 {
-    #[Route('/prospection/index/prospection', name: 'app_prospection_index')]
+    #[Route('/prospections', name: 'app_prospection_index')]
     public function __invoke(ProspectionRepository $prospectionRepository): Response
     {
         return $this->render('prospection/index_prospection/index.html.twig', [
