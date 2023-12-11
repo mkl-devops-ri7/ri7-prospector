@@ -9,7 +9,8 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserFixtures extends Fixture
 {
-    public const string USER_JOHN_DOE = 'user_john_doe';
+    public const string USER_JOHN_DOE = 'john.doe@gmail.com';
+    public const string USER_MARIE = 'marie.blanche@gmail.com';
     public const string PLAIN_PASSWORD = 'azerty';
 
     public function __construct(
@@ -50,12 +51,22 @@ class UserFixtures extends Fixture
         ));
 
         $john = $this->createUser(
-            email: 'john.doe@gmail.com',
+            email: self::USER_JOHN_DOE,
             firstName: 'John',
             lastName: 'Doe'
         );
+
         $manager->persist($john);
         $this->addReference(self::USER_JOHN_DOE, $john);
+
+        $marie = $this->createUser(
+            email: self::USER_MARIE,
+            firstName: 'Blanche',
+            lastName: 'Marie'
+        );
+
+        $manager->persist($marie);
+        $this->addReference(self::USER_MARIE, $marie);
 
         $manager->flush();
     }

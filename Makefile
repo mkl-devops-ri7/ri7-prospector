@@ -25,7 +25,7 @@ SYMFONY  = $(PHP) console
 
 # Misc
 .DEFAULT_GOAL = help
-.PHONY        : help build up start down logs sh composer vendor sf cc
+.PHONY        : help docker-restart
 
 ## —— 🎵 🐳 The Symfony Docker Makefile 🐳 🎵 ——————————————————————————————————
 help: ## Outputs this help screen
@@ -47,9 +47,6 @@ docker-down: ## Stop the docker hub
 
 docker-logs: ## Show live logs
 	@$(DOCKER_COMP) logs --tail=0 --follow
-
-docker-ls: ## Show live logs
-	@$(DOCKER_COMP) lsdocker
 
 docker-sh: ## Connect to the PHP FPM container
 	@$(PHP_CONT) zsh
@@ -97,14 +94,17 @@ tests-all: ## Run all tests
 	@$(MAKE) --no-print-directory database-drop env=test
 	@$(MAKE) --no-print-directory doctrine-schema-create env=test
 	@$(MAKE) --no-print-directory doctrine-fixtures env=test
-	@$(MAKE) --no-print-directory test env=test
+	@$(MAKE) --no-print-directory paratest env=test
 
 jobs ?= $(shell nproc)
-test: ## Run tests
+paratest: ## Run tests
 	$(PHP_CONT) rm -rf var/test{0-9}+.db
 	$(PHP_CONT) zsh -c 'tee $(foreach TEST_TOKEN,$(shell seq 1 $(jobs)),var/test$(TEST_TOKEN).db) < var/test.db' >/dev/null
 	$(PHP_CONT) ./vendor/bin/paratest --processes=$(jobs) --runner=WrapperRunner $(c)
 	$(PHP_CONT) rm -rf var/test{0-9}+.db
+
+test: ## Run tests
+	$(PHP_CONT_TEST) ./vendor/bin/phpunit $(c)
 
 database-drop:
 	$(SYMFONY) doctrine:schema:drop --force --full-database $q
