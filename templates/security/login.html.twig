@@ -4,23 +4,9 @@
 
 {% block body %}
 
-    <!--
-  Heads up! 👋
-
-  Plugins:
-    - @tailwindcss/forms
--->
-
-    <!--
-      Heads up! 👋
-
-      Plugins:
-        - @tailwindcss/forms
-    -->
-
     <div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
         <div class="mx-auto max-w-lg text-center">
-            <h1 class="text-2xl font-bold sm:text-3xl">Login</h1>
+            <h1 class="text-2xl font-bold sm:text-3xl">{{ 'Login'|trans }}</h1>
 
         </div>
 
@@ -31,7 +17,7 @@
 
             {% if app.user %}
                 <div class="mb-3">
-                    You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+                    You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">{{ 'Logout'|trans }}</a>
                 </div>
             {% endif %}
 
@@ -115,12 +101,9 @@
                        value="{{ csrf_token('authenticate') }}"
                 >
 
-                <button
-                    type="submit"
-                    class="inline-block rounded-lg bg-teal-600 px-5 py-3 text-sm font-medium text-white"
-                >
+                <twig:Button type="submit" class="rounded-lg bg-teal-600 px-5 py-3">
                     Valider
-                </button>
+                </twig:Button>
             </div>
         </form>
     </div>
