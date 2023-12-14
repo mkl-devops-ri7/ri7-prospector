@@ -1848,28 +1848,28 @@
         },
         {
             "name": "friendsofsymfony/jsrouting-bundle",
-            "version": "3.3.0",
+            "version": "3.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSJsRoutingBundle.git",
-                "reference": "4daa2620d1d1afbbaec620e158fffe10f9fb5d4c"
+                "reference": "80835feb9caa57b23cb3d1ef405440098d57dca0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSJsRoutingBundle/zipball/4daa2620d1d1afbbaec620e158fffe10f9fb5d4c",
-                "reference": "4daa2620d1d1afbbaec620e158fffe10f9fb5d4c",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSJsRoutingBundle/zipball/80835feb9caa57b23cb3d1ef405440098d57dca0",
+                "reference": "80835feb9caa57b23cb3d1ef405440098d57dca0",
                 "shasum": ""
             },
             "require": {
                 "php": "^8.0",
-                "symfony/console": "^5.4|^6.0",
-                "symfony/framework-bundle": "^5.4|^6.0",
-                "symfony/serializer": "^5.4|^6.0.1",
+                "symfony/console": "^5.4|^6.0|^7.0",
+                "symfony/framework-bundle": "^5.4|^6.0|^7.0",
+                "symfony/serializer": "^5.4|^6.0.1|^7.0",
                 "willdurand/jsonp-callback-validator": "~1.1|^2.0"
             },
             "require-dev": {
-                "symfony/expression-language": "^5.4|^6.0",
-                "symfony/phpunit-bridge": "^5.4|^6.0"
+                "symfony/expression-language": "^5.4|^6.0|^7.0",
+                "symfony/phpunit-bridge": "^5.4|^6.0|^7.0"
             },
             "type": "symfony-bundle",
             "extra": {
@@ -1908,9 +1908,9 @@
             ],
             "support": {
                 "issues": "https://github.com/FriendsOfSymfony/FOSJsRoutingBundle/issues",
-                "source": "https://github.com/FriendsOfSymfony/FOSJsRoutingBundle/tree/3.3.0"
+                "source": "https://github.com/FriendsOfSymfony/FOSJsRoutingBundle/tree/3.4.0"
             },
-            "time": "2023-07-04T17:41:13+00:00"
+            "time": "2023-12-12T13:19:40+00:00"
         },
         {
             "name": "gedmo/doctrine-extensions",
@@ -9022,16 +9022,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.10.48",
+            "version": "1.10.50",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "087ed4b5f4a7a6e8f3bbdfbfe98ce5c181380bc6"
+                "reference": "06a98513ac72c03e8366b5a0cb00750b487032e4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/087ed4b5f4a7a6e8f3bbdfbfe98ce5c181380bc6",
-                "reference": "087ed4b5f4a7a6e8f3bbdfbfe98ce5c181380bc6",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/06a98513ac72c03e8366b5a0cb00750b487032e4",
+                "reference": "06a98513ac72c03e8366b5a0cb00750b487032e4",
                 "shasum": ""
             },
             "require": {
@@ -9080,7 +9080,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-12-08T14:34:28+00:00"
+            "time": "2023-12-13T10:59:42+00:00"
         },
         {
             "name": "phpstan/phpstan-doctrine",
@@ -9278,16 +9278,16 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "10.1.9",
+            "version": "10.1.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "a56a9ab2f680246adcf3db43f38ddf1765774735"
+                "reference": "599109c8ca6bae97b23482d557d2874c25a65e59"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/a56a9ab2f680246adcf3db43f38ddf1765774735",
-                "reference": "a56a9ab2f680246adcf3db43f38ddf1765774735",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/599109c8ca6bae97b23482d557d2874c25a65e59",
+                "reference": "599109c8ca6bae97b23482d557d2874c25a65e59",
                 "shasum": ""
             },
             "require": {
@@ -9344,7 +9344,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/php-code-coverage/issues",
                 "security": "https://github.com/sebastianbergmann/php-code-coverage/security/policy",
-                "source": "https://github.com/sebastianbergmann/php-code-coverage/tree/10.1.9"
+                "source": "https://github.com/sebastianbergmann/php-code-coverage/tree/10.1.10"
             },
             "funding": [
                 {
@@ -9352,7 +9352,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-11-23T12:23:20+00:00"
+            "time": "2023-12-11T06:28:43+00:00"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -9599,16 +9599,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "10.5.2",
+            "version": "10.5.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "5aedff46afba98dddecaa12349ec044d9103d4fe"
+                "reference": "6fce887c71076a73f32fd3e0774a6833fc5c7f19"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/5aedff46afba98dddecaa12349ec044d9103d4fe",
-                "reference": "5aedff46afba98dddecaa12349ec044d9103d4fe",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/6fce887c71076a73f32fd3e0774a6833fc5c7f19",
+                "reference": "6fce887c71076a73f32fd3e0774a6833fc5c7f19",
                 "shasum": ""
             },
             "require": {
@@ -9680,7 +9680,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
                 "security": "https://github.com/sebastianbergmann/phpunit/security/policy",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/10.5.2"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/10.5.3"
             },
             "funding": [
                 {
@@ -9696,7 +9696,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-12-05T14:54:33+00:00"
+            "time": "2023-12-13T07:25:23+00:00"
         },
         {
             "name": "sebastian/cli-parser",
