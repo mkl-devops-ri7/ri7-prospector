@@ -15,8 +15,8 @@ services:
       STABILITY: ${STABILITY:-stable}
     ports:
       # HTTP
-      - target: 80
-        published: ${HTTP_PORT:-80}
+      - target: 8080
+        published: ${HTTP_PORT:-8080}
         protocol: tcp
       # HTTPS
       - target: 443
